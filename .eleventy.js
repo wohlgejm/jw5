@@ -9,7 +9,8 @@ module.exports = function(eleventyConfig) {
     "jpg",
     "ico",
     "png",
-    "svg"
+    "svg",
+    "pdf"
   ]);
   eleventyConfig.addPlugin(syntaxHighlight);
 };
