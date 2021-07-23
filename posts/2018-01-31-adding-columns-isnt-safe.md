@@ -24,16 +24,16 @@ This [article](http://www.databasesoup.com/2013/11/alter-table-and-downtime-part
 
 After investigating, we noticed a single query that could take up to 40 minutes to run.
 When you add a new column, postgres issues an `ACCESS EXCLUSIVE` lock for that table (more [here](https://www.postgresql.org/docs/9.5/static/sql-altertable.html)).
-That locks *reads* and *writes*.
+That locks _reads_ and _writes_.
 
-Once this lock has been requested, *all* queries will queue up behind it.
+Once this lock has been requested, _all_ queries will queue up behind it.
 If a 40 minute query is running, everything will back up behind the `ALTER` statement and you'll have 40 minutes of downtime. No bueno. Depending on your read/write volume, your database will likely cripple under this weight, like ours did. (We have ~1000 reads/second and ~250 writes/second).
 
 So, what can we do? Fixing these long running queries is the answer. Usually, adding a column is safe because it runs
 in miliseconds and if you have all short running queries, the queue isn't going to build up behind the lock.
 
 I think the biggest problem right now is that so many resources on the internet state that adding a column is a worry free operation.
-While 40 minutes is extreme, I think *most* large applications that have been in development a while will have
+While 40 minutes is extreme, I think _most_ large applications that have been in development a while will have
 long running queries and it's a real risk to add a column in production.
 
 You've been warned.

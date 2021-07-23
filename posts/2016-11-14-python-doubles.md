@@ -63,6 +63,7 @@ def test_api_service():
     assert ApiService().data == {'foo': 'bar'}
 
 ```
+
 It might look like a lot of boiler plate to allow methods on the `InstanceDouble`, but this is much safer
 than the other spec where I just used a namedtuple. From the [docs](http://doubles.readthedocs.io/en/latest/usage.html#pure-doubles):
 

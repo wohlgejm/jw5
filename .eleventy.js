@@ -1,6 +1,6 @@
 const syntaxHighlight = require("@11ty/eleventy-plugin-syntaxhighlight");
 
-module.exports = function(eleventyConfig) {
+module.exports = function (eleventyConfig) {
   eleventyConfig.setTemplateFormats([
     "html",
     "md",
@@ -10,7 +10,7 @@ module.exports = function(eleventyConfig) {
     "ico",
     "png",
     "svg",
-    "pdf"
+    "pdf",
   ]);
   eleventyConfig.addPlugin(syntaxHighlight);
 };

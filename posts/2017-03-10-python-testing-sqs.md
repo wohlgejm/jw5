@@ -30,7 +30,9 @@ class MyMessageCreator(object):
           MessageBody=message
         )
 ```
+
 And here is the spec:
+
 ```python
 import json
 

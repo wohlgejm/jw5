@@ -1,6 +1,9 @@
 # Personal website
+
 ## Development
+
 To start the server:
+
 ```
 npx @11ty/eleventy --serve
 ```

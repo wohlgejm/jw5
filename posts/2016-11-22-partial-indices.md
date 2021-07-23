@@ -28,9 +28,9 @@ A feature request might change the `active` scope to include another attribute.
 Once that scope is changed, the index is worthless and it's hard to remember
 that it must be changed.
 
-This bit us hard recently and it was hard to pin down because the query timed out only *some times*
+This bit us hard recently and it was hard to pin down because the query timed out only _some times_
 and on a variety of pages where the scope was used.
 
 If you have a default scope, it would probably make matters even worse.
 
-Because partial indexes can't keep up with scopes, I think they are *generally* a bad idea, like default scopes.
+Because partial indexes can't keep up with scopes, I think they are _generally_ a bad idea, like default scopes.

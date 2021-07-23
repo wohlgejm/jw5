@@ -18,26 +18,26 @@ able change this snippet to use whichever algorithm your target API expects. Thi
 
 ```javascript
 var base64Encode = function (str) {
-    var encoded = Utilities.base64EncodeWebSafe(str);
-    // Remove padding
-    return encoded.replace(/=+$/, '');
+  var encoded = Utilities.base64EncodeWebSafe(str);
+  // Remove padding
+  return encoded.replace(/=+$/, "");
 };
 
 var encodeJWT = function (secret) {
-    var header = JSON.stringify({
-        typ: 'JWT',
-        alg: 'HS256'
-    });
-    var encodedHeader = base64Encode(header);
-    var iat = new Date().getTime() / 1000;
-    var payload = JSON.stringify({
-        iat: iat
-    });
-    var encodedPayload = base64Encode(payload);
-    var toSign = [encodedHeader, encodedPayload].join('.');
-    var signature = Utilities.computeHmacSha256Signature(toSign, secret);
-    var encodedSignature = base64Encode(signature);
-    console.log("Encoded Signature: " + encodedSignature);
-    return [toSign, encodedSignature].join('.');
+  var header = JSON.stringify({
+    typ: "JWT",
+    alg: "HS256",
+  });
+  var encodedHeader = base64Encode(header);
+  var iat = new Date().getTime() / 1000;
+  var payload = JSON.stringify({
+    iat: iat,
+  });
+  var encodedPayload = base64Encode(payload);
+  var toSign = [encodedHeader, encodedPayload].join(".");
+  var signature = Utilities.computeHmacSha256Signature(toSign, secret);
+  var encodedSignature = base64Encode(signature);
+  console.log("Encoded Signature: " + encodedSignature);
+  return [toSign, encodedSignature].join(".");
 };
 ```
