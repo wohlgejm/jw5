@@ -1,49 +1,68 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js" lang="en">
-<head>
-    <meta charset="utf-8">
+  <head>
+    <meta charset="utf-8" />
     <title>Testing sqs in python</title>
-    <meta name="description" content="Personal website of Jerry Wohlgemuth.">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Personal website of Jerry Wohlgemuth." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="og:title" content="Testing sqs in python">
-    <meta property="og:type" content="">
-    <meta property="og:url" content="https://jw5.dev">
-    <meta property="og:image" content="">
+    <meta property="og:title" content="Testing sqs in python" />
+    <meta property="og:type" content="" />
+    <meta property="og:url" content="https://jw5.dev" />
+    <meta property="og:image" content="" />
 
-    <link rel="apple-touch-icon" href="/img/favicon.ico">
-    <link rel="shortcut icon" type="image/jpg" href="/img/favicon.ico"/>
+    <link rel="apple-touch-icon" href="/img/favicon.ico" />
+    <link rel="shortcut icon" type="image/jpg" href="/img/favicon.ico" />
 
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Prism Syntax Highlighting -->
-    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
+    <link
+      href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css"
+      rel="stylesheet"
+    />
 
     <!-- Tachyons-->
-    <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/tachyons/css/tachyons.min.css"
+    />
 
     <!-- Local styles-->
-    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/main.css" />
 
-    <meta name="theme-color" content="#fafafa">
-    </head>
+    <meta name="theme-color" content="#fafafa" />
+  </head>
 
-    <body>
-      <div class="mw7 mw7-ns center pa3 ph5-ns" >
-        <a href="/" class="flex items-center bb no-underline black">
-            <img src="/img/waveemoji.svg" alt="Wave" width="50" height="50" />
-            <h1 class="ml4">I'm Jerry Wohlgemuth.</h1>
-        </a>
+  <body>
+    <div class="mw7 mw7-ns center pa3 ph5-ns">
+      <a href="/" class="flex items-center bb no-underline black">
+        <img src="/img/waveemoji.svg" alt="Wave" width="50" height="50" />
+        <h1 class="ml4">I'm Jerry Wohlgemuth.</h1>
+      </a>
 
-        <div class="flex pa3 justify-center">
-            <div><a href="/about">about me</a></div>
-            <div class="ml4"><a href="mailto:wohlgejm@gmail.com">email</a></div>
-            <div class="ml4"><a href="https://www.linkedin.com/in/wohlgejm" rel="noreferrer" target="_blank">linkedin</a></div>
+      <div class="flex pa3 justify-center">
+        <div><a href="/about">about me</a></div>
+        <div class="ml4"><a href="mailto:wohlgejm@gmail.com">email</a></div>
+        <div class="ml4">
+          <a
+            href="https://www.linkedin.com/in/wohlgejm"
+            rel="noreferrer"
+            target="_blank"
+            >linkedin</a
+          >
         </div>
-        <p>AWS's <a href="https://aws.amazon.com/sqs/">SQS</a> (simple queue service) is a nice way of not having to manage your own
+      </div>
+      
+<h3 class="tc"> Testing sqs in python</h1>
+<h5 class="tc"> 2017-03-10</h1>
+<main><p>AWS's <a href="https://aws.amazon.com/sqs/">SQS</a> (simple queue service) is a nice way of not having to manage your own
 <a href="https://www.rabbitmq.com/">RabbitMQ</a>, <a href="https://redis.io/">Redis</a>, etc., message broker. Testing it can be a
 pain point however, since you can't have your CI start an instance for testing.</p>
 <p>This is where <a href="https://github.com/spulec/moto">Moto</a> comes in. Moto is a python library that mocks AWS service
@@ -53,17 +72,23 @@ to mock to post to the test queue. Here's a simple example of an object that cre
 <pre class="language-python"><code class="language-python"><span class="token keyword">import</span> boto3<br><br><br>client <span class="token operator">=</span> boto3<span class="token punctuation">.</span>client<span class="token punctuation">(</span><span class="token string">'sqs'</span><span class="token punctuation">,</span> <span class="token string">'us-east-1'</span><span class="token punctuation">)</span><br><br><br><span class="token keyword">class</span> <span class="token class-name">MyMessageCreator</span><span class="token punctuation">(</span><span class="token builtin">object</span><span class="token punctuation">)</span><span class="token punctuation">:</span><br>    queue_url <span class="token operator">=</span> client<span class="token punctuation">.</span>get_queue_url<span class="token punctuation">(</span>QueueName<span class="token operator">=</span><span class="token string">'your-queue-name'</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token string">'QueueUrl'</span><span class="token punctuation">]</span><br><br>    <span class="token keyword">def</span> <span class="token function">send_message</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> message<span class="token punctuation">)</span><span class="token punctuation">:</span><br>        client<span class="token punctuation">.</span>send_message<span class="token punctuation">(</span><br>          QueueUrl<span class="token operator">=</span>self<span class="token punctuation">.</span>queue_url<span class="token punctuation">,</span><br>          MessageBody<span class="token operator">=</span>message<br>        <span class="token punctuation">)</span></code></pre>
 <p>And here is the spec:</p>
 <pre class="language-python"><code class="language-python"><span class="token keyword">import</span> json<br><br><span class="token keyword">import</span> pytest<br><span class="token keyword">from</span> moto <span class="token keyword">import</span> mock_sqs<br><span class="token keyword">import</span> boto3<br><br><span class="token keyword">import</span> MyMessageCreator<br><br><br><span class="token decorator annotation punctuation">@pytest<span class="token punctuation">.</span>fixture</span><br><span class="token keyword">def</span> <span class="token function">sqs</span><span class="token punctuation">(</span>scope<span class="token operator">=</span><span class="token string">'session'</span><span class="token punctuation">,</span> autouse<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">:</span><br>    mock <span class="token operator">=</span> mock_sqs<span class="token punctuation">(</span><span class="token punctuation">)</span><br>    mock<span class="token punctuation">.</span>start<span class="token punctuation">(</span><span class="token punctuation">)</span><br><br>    sqs_client <span class="token operator">=</span> boto3<span class="token punctuation">.</span>client<span class="token punctuation">(</span><span class="token string">'sqs'</span><span class="token punctuation">,</span> <span class="token string">'us-west-1'</span><span class="token punctuation">)</span><br>    queue_name <span class="token operator">=</span> <span class="token string">'connect-responses-{}'</span><span class="token punctuation">.</span><span class="token builtin">format</span><span class="token punctuation">(</span>stage<span class="token punctuation">)</span><br>    queue_url <span class="token operator">=</span> sqs_client<span class="token punctuation">.</span>create_queue<span class="token punctuation">(</span><br>        QueueName<span class="token operator">=</span><span class="token string">'test'</span><br>    <span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token string">'QueueUrl'</span><span class="token punctuation">]</span><br><br>    <span class="token keyword">yield</span> <span class="token punctuation">(</span>sqs_client<span class="token punctuation">,</span> queue_url<span class="token punctuation">)</span><br><br>    mock<span class="token punctuation">.</span>stop<span class="token punctuation">(</span><span class="token punctuation">)</span><br><br><span class="token keyword">def</span> <span class="token function">test_message_received</span><span class="token punctuation">(</span>sqs<span class="token punctuation">)</span><span class="token punctuation">:</span><br>    client<span class="token punctuation">,</span> queue_url <span class="token operator">=</span> sqs<br>    MyMessageCreator<span class="token punctuation">.</span>queue_url <span class="token operator">=</span> queue_url<br>    creator <span class="token operator">=</span> MyMessageCreator<span class="token punctuation">(</span><span class="token punctuation">)</span><br>    creator<span class="token punctuation">.</span>send_message<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">'key'</span><span class="token punctuation">:</span> <span class="token string">'value'</span><span class="token punctuation">}</span><span class="token punctuation">)</span><br>    response <span class="token operator">=</span> client<span class="token punctuation">.</span>receive_messsage<span class="token punctuation">(</span>QueueUrl<span class="token operator">=</span>queue_url<span class="token punctuation">)</span><br>    <span class="token keyword">assert</span> response<span class="token punctuation">[</span><span class="token string">'Messages'</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token string">'Body'</span><span class="token punctuation">]</span> <span class="token operator">==</span> json<span class="token punctuation">.</span>dumps<span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token string">'key'</span><span class="token punctuation">:</span>  <span class="token string">'value'</span><span class="token punctuation">}</span><span class="token punctuation">)</span></code></pre>
+</main>
 
-      </div>
-    </body>
+    </div>
+  </body>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CY25JVKR0D"></script>
-    <script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-CY25JVKR0D"
+  ></script>
+  <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
 
-    gtag('config', 'G-CY25JVKR0D');
-    </script>
+    gtag("config", "G-CY25JVKR0D");
+  </script>
 </html>

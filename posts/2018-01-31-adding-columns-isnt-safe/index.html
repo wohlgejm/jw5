@@ -1,49 +1,68 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js" lang="en">
-<head>
-    <meta charset="utf-8">
+  <head>
+    <meta charset="utf-8" />
     <title>Adding a column is unsafe</title>
-    <meta name="description" content="Personal website of Jerry Wohlgemuth.">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Personal website of Jerry Wohlgemuth." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="og:title" content="Adding a column is unsafe">
-    <meta property="og:type" content="">
-    <meta property="og:url" content="https://jw5.dev">
-    <meta property="og:image" content="">
+    <meta property="og:title" content="Adding a column is unsafe" />
+    <meta property="og:type" content="" />
+    <meta property="og:url" content="https://jw5.dev" />
+    <meta property="og:image" content="" />
 
-    <link rel="apple-touch-icon" href="/img/favicon.ico">
-    <link rel="shortcut icon" type="image/jpg" href="/img/favicon.ico"/>
+    <link rel="apple-touch-icon" href="/img/favicon.ico" />
+    <link rel="shortcut icon" type="image/jpg" href="/img/favicon.ico" />
 
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Prism Syntax Highlighting -->
-    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
+    <link
+      href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css"
+      rel="stylesheet"
+    />
 
     <!-- Tachyons-->
-    <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/tachyons/css/tachyons.min.css"
+    />
 
     <!-- Local styles-->
-    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/main.css" />
 
-    <meta name="theme-color" content="#fafafa">
-    </head>
+    <meta name="theme-color" content="#fafafa" />
+  </head>
 
-    <body>
-      <div class="mw7 mw7-ns center pa3 ph5-ns" >
-        <a href="/" class="flex items-center bb no-underline black">
-            <img src="/img/waveemoji.svg" alt="Wave" width="50" height="50" />
-            <h1 class="ml4">I'm Jerry Wohlgemuth.</h1>
-        </a>
+  <body>
+    <div class="mw7 mw7-ns center pa3 ph5-ns">
+      <a href="/" class="flex items-center bb no-underline black">
+        <img src="/img/waveemoji.svg" alt="Wave" width="50" height="50" />
+        <h1 class="ml4">I'm Jerry Wohlgemuth.</h1>
+      </a>
 
-        <div class="flex pa3 justify-center">
-            <div><a href="/about">about me</a></div>
-            <div class="ml4"><a href="mailto:wohlgejm@gmail.com">email</a></div>
-            <div class="ml4"><a href="https://www.linkedin.com/in/wohlgejm" rel="noreferrer" target="_blank">linkedin</a></div>
+      <div class="flex pa3 justify-center">
+        <div><a href="/about">about me</a></div>
+        <div class="ml4"><a href="mailto:wohlgejm@gmail.com">email</a></div>
+        <div class="ml4">
+          <a
+            href="https://www.linkedin.com/in/wohlgejm"
+            rel="noreferrer"
+            target="_blank"
+            >linkedin</a
+          >
         </div>
-        <p>I've been burned by migrations in production many times now.</p>
+      </div>
+      
+<h3 class="tc"> Adding a column is unsafe</h1>
+<h5 class="tc"> 2018-01-31</h1>
+<main><p>I've been burned by migrations in production many times now.</p>
 <p>Because of this, my current team goes to great lengths to make sure migrations don't go unnoticed.
 We make sure code is always compatible without the migration being run in case we have to rollback.
 This takes time and more deploys, but up until now it's worked very well.
@@ -66,17 +85,23 @@ in miliseconds and if you have all short running queries, the queue isn't going 
 While 40 minutes is extreme, I think <em>most</em> large applications that have been in development a while will have
 long running queries and it's a real risk to add a column in production.</p>
 <p>You've been warned.</p>
+</main>
 
-      </div>
-    </body>
+    </div>
+  </body>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CY25JVKR0D"></script>
-    <script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-CY25JVKR0D"
+  ></script>
+  <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
 
-    gtag('config', 'G-CY25JVKR0D');
-    </script>
+    gtag("config", "G-CY25JVKR0D");
+  </script>
 </html>

@@ -1,49 +1,68 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js" lang="en">
-<head>
-    <meta charset="utf-8">
+  <head>
+    <meta charset="utf-8" />
     <title>Using ENVs for Google Drive API auth</title>
-    <meta name="description" content="Personal website of Jerry Wohlgemuth.">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Personal website of Jerry Wohlgemuth." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="og:title" content="Using ENVs for Google Drive API auth">
-    <meta property="og:type" content="">
-    <meta property="og:url" content="https://jw5.dev">
-    <meta property="og:image" content="">
+    <meta property="og:title" content="Using ENVs for Google Drive API auth" />
+    <meta property="og:type" content="" />
+    <meta property="og:url" content="https://jw5.dev" />
+    <meta property="og:image" content="" />
 
-    <link rel="apple-touch-icon" href="/img/favicon.ico">
-    <link rel="shortcut icon" type="image/jpg" href="/img/favicon.ico"/>
+    <link rel="apple-touch-icon" href="/img/favicon.ico" />
+    <link rel="shortcut icon" type="image/jpg" href="/img/favicon.ico" />
 
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Prism Syntax Highlighting -->
-    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
+    <link
+      href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css"
+      rel="stylesheet"
+    />
 
     <!-- Tachyons-->
-    <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/tachyons/css/tachyons.min.css"
+    />
 
     <!-- Local styles-->
-    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/main.css" />
 
-    <meta name="theme-color" content="#fafafa">
-    </head>
+    <meta name="theme-color" content="#fafafa" />
+  </head>
 
-    <body>
-      <div class="mw7 mw7-ns center pa3 ph5-ns" >
-        <a href="/" class="flex items-center bb no-underline black">
-            <img src="/img/waveemoji.svg" alt="Wave" width="50" height="50" />
-            <h1 class="ml4">I'm Jerry Wohlgemuth.</h1>
-        </a>
+  <body>
+    <div class="mw7 mw7-ns center pa3 ph5-ns">
+      <a href="/" class="flex items-center bb no-underline black">
+        <img src="/img/waveemoji.svg" alt="Wave" width="50" height="50" />
+        <h1 class="ml4">I'm Jerry Wohlgemuth.</h1>
+      </a>
 
-        <div class="flex pa3 justify-center">
-            <div><a href="/about">about me</a></div>
-            <div class="ml4"><a href="mailto:wohlgejm@gmail.com">email</a></div>
-            <div class="ml4"><a href="https://www.linkedin.com/in/wohlgejm" rel="noreferrer" target="_blank">linkedin</a></div>
+      <div class="flex pa3 justify-center">
+        <div><a href="/about">about me</a></div>
+        <div class="ml4"><a href="mailto:wohlgejm@gmail.com">email</a></div>
+        <div class="ml4">
+          <a
+            href="https://www.linkedin.com/in/wohlgejm"
+            rel="noreferrer"
+            target="_blank"
+            >linkedin</a
+          >
         </div>
-        <p>The <a href="https://developers.google.com/sheets/quickstart/ruby">docs</a> for the Google Ruby API could be much clearer.
+      </div>
+      
+<h3 class="tc"> Using ENVs for Google Drive API auth</h1>
+<h5 class="tc"> 2016-12-04</h1>
+<main><p>The <a href="https://developers.google.com/sheets/quickstart/ruby">docs</a> for the Google Ruby API could be much clearer.
 Most of the complexity is around authorization. If you're using a service account (not tied to any particular user)
 for authorization, Google provides you with a JSON file that contains your credentials.</p>
 <p>Since you don't want to check these credentials into your VCS, you're only option is to upload them to s3
@@ -57,17 +76,23 @@ GOOGLE_PRIVATE_KEY=&quot;BEGIN..&quot;
 </code></pre>
 <p>And use these for sheets authorization like so:</p>
 <pre class="language-ruby"><code class="language-ruby">auth <span class="token operator">=</span> <span class="token constant">Google</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Auth</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">ServiceAccountCredentials</span><span class="token punctuation">.</span>make_creds<br>auth<span class="token punctuation">.</span>scope <span class="token operator">=</span> <span class="token constant">Google</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Apis</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">SheetsV4</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">AUTH_SPREADSHEETS_READONLY</span><br>auth<span class="token punctuation">.</span>fetch_access_token<br>sheets <span class="token operator">=</span> <span class="token constant">Google</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Apis</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">SheetsV4</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">SheetsService</span><span class="token punctuation">.</span><span class="token keyword">new</span><br>sheets<span class="token punctuation">.</span>authorization <span class="token operator">=</span> auth<br>sheets<span class="token punctuation">.</span>get_spreadsheet<span class="token punctuation">(</span><span class="token constant">SHEET_ID</span><span class="token punctuation">)</span></code></pre>
+</main>
 
-      </div>
-    </body>
+    </div>
+  </body>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CY25JVKR0D"></script>
-    <script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-CY25JVKR0D"
+  ></script>
+  <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
 
-    gtag('config', 'G-CY25JVKR0D');
-    </script>
+    gtag("config", "G-CY25JVKR0D");
+  </script>
 </html>

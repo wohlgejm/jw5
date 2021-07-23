@@ -1,49 +1,68 @@
-<!doctype html>
+<!DOCTYPE html>
 <html class="no-js" lang="en">
-<head>
-    <meta charset="utf-8">
+  <head>
+    <meta charset="utf-8" />
     <title>Fake `open` with Python doubles</title>
-    <meta name="description" content="Personal website of Jerry Wohlgemuth.">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Personal website of Jerry Wohlgemuth." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <meta property="og:title" content="Fake `open` with Python doubles">
-    <meta property="og:type" content="">
-    <meta property="og:url" content="https://jw5.dev">
-    <meta property="og:image" content="">
+    <meta property="og:title" content="Fake `open` with Python doubles" />
+    <meta property="og:type" content="" />
+    <meta property="og:url" content="https://jw5.dev" />
+    <meta property="og:image" content="" />
 
-    <link rel="apple-touch-icon" href="/img/favicon.ico">
-    <link rel="shortcut icon" type="image/jpg" href="/img/favicon.ico"/>
+    <link rel="apple-touch-icon" href="/img/favicon.ico" />
+    <link rel="shortcut icon" type="image/jpg" href="/img/favicon.ico" />
 
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Prism Syntax Highlighting -->
-    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
+    <link
+      href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css"
+      rel="stylesheet"
+    />
 
     <!-- Tachyons-->
-    <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/tachyons/css/tachyons.min.css"
+    />
 
     <!-- Local styles-->
-    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="stylesheet" href="/styles/main.css" />
 
-    <meta name="theme-color" content="#fafafa">
-    </head>
+    <meta name="theme-color" content="#fafafa" />
+  </head>
 
-    <body>
-      <div class="mw7 mw7-ns center pa3 ph5-ns" >
-        <a href="/" class="flex items-center bb no-underline black">
-            <img src="/img/waveemoji.svg" alt="Wave" width="50" height="50" />
-            <h1 class="ml4">I'm Jerry Wohlgemuth.</h1>
-        </a>
+  <body>
+    <div class="mw7 mw7-ns center pa3 ph5-ns">
+      <a href="/" class="flex items-center bb no-underline black">
+        <img src="/img/waveemoji.svg" alt="Wave" width="50" height="50" />
+        <h1 class="ml4">I'm Jerry Wohlgemuth.</h1>
+      </a>
 
-        <div class="flex pa3 justify-center">
-            <div><a href="/about">about me</a></div>
-            <div class="ml4"><a href="mailto:wohlgejm@gmail.com">email</a></div>
-            <div class="ml4"><a href="https://www.linkedin.com/in/wohlgejm" rel="noreferrer" target="_blank">linkedin</a></div>
+      <div class="flex pa3 justify-center">
+        <div><a href="/about">about me</a></div>
+        <div class="ml4"><a href="mailto:wohlgejm@gmail.com">email</a></div>
+        <div class="ml4">
+          <a
+            href="https://www.linkedin.com/in/wohlgejm"
+            rel="noreferrer"
+            target="_blank"
+            >linkedin</a
+          >
         </div>
-        <p>I've been strugging a bit testing an <code>open</code> call with the <code>doubles</code> library. As is the case many times, most
+      </div>
+      
+<h3 class="tc"> Fake `open` with Python doubles</h1>
+<h5 class="tc"> 2016-11-20</h1>
+<main><p>I've been strugging a bit testing an <code>open</code> call with the <code>doubles</code> library. As is the case many times, most
 of my struggle has revolved aroudn writing python2 and 3 compatible code/tests.
 I'm trying to assert the built in <code>open</code> function is called with the right file name argument.</p>
 <p>The first thing you need to do is disable builtin verification in the <code>doubles</code> library, using a context manager
@@ -53,17 +72,23 @@ where open is provided from 2 to 3, <code>__builtin__</code> to <code>builtins</
 see more <a href="http://python-future.org/compatible_idioms.html#stringio">here</a>.</p>
 <p>The final version of my test to check <code>open</code> is called with the correct arguments, looks like this:</p>
 <pre class="language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">test_io</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span><br>    <span class="token keyword">with</span> no_builtin_verification<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span><br>        i <span class="token operator">=</span> <span class="token builtin">__import__</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token string">'builtins'</span> <span class="token keyword">if</span> sys<span class="token punctuation">.</span>version_info <span class="token operator">>=</span> <span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token punctuation">)</span><br>                        <span class="token keyword">else</span> <span class="token string">'__builtin__'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><br>        expect<span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">open</span><span class="token punctuation">.</span>with_args<span class="token punctuation">(</span>Config<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>config_file<span class="token punctuation">,</span> <span class="token string">'w+'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>and_return<span class="token punctuation">(</span><br>            io<span class="token punctuation">.</span>BytesIO<span class="token punctuation">(</span><span class="token punctuation">)</span><br>        <span class="token punctuation">)</span></code></pre>
+</main>
 
-      </div>
-    </body>
+    </div>
+  </body>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CY25JVKR0D"></script>
-    <script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-CY25JVKR0D"
+  ></script>
+  <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
 
-    gtag('config', 'G-CY25JVKR0D');
-    </script>
+    gtag("config", "G-CY25JVKR0D");
+  </script>
 </html>
