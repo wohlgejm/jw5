@@ -1,0 +1,56 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <title>Bust github badges cache</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:title" content="Bust github badges cache">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="https://jw5.dev">
+    <meta property="og:image" content="">
+
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="apple-touch-icon" href="/img/favicon.ico">
+    <link rel="shortcut icon" type="image/jpg" href="/img/favicon.ico"/>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300&display=swap" rel="stylesheet">
+
+    <!-- Prism Syntax Highlighting -->
+    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
+
+    <!-- Tachyons-->
+    <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+
+    <!-- Local styles-->
+    <link rel="stylesheet" href="/styles/main.css">
+
+    <meta name="theme-color" content="#fafafa">
+    </head>
+
+    <body>
+      <div class="mw7 mw7-ns center pa3 ph5-ns" >
+        <a href="/" class="flex items-center bb no-underline black">
+            <img class="" src="/img/waveemoji.svg" width="50" height="50" />
+            <h1 class="ml4">I'm Jerry Wohlgemuth.</h1>
+        </a>
+
+        <div class="flex pa3 justify-center">
+            <div><a href="/about">about me</a></div>
+            <div class="ml4"><a href="mailto:wohlgejm@gmail.com">email</div>
+            <div class="ml4"><a href="https://www.linkedin.com/in/wohlgejm" target="_blank">linkedin</a></div>
+        </div>
+        <main>
+    <p>I wanted to see the updated coverage badge for my Jira cli, <a href="https://github.com/wohlgejm/accountable">Accountable</a>.</p>
+<p>Github caches these badges according to this <a href="https://github.com/lemurheavy/coveralls-public/issues/116">issue</a>.</p>
+<p>Credit to courtney-miles whose answer worked for me: <code>curl -X PURGE &quot;https://camo.githubusercontent.com/...&quot;</code>.</p>
+
+</main>
+
+      </div>
+    </body>
+</html>

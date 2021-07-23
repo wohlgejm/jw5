@@ -1,0 +1,64 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <title>ReasonML and vim</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:title" content="ReasonML and vim">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="https://jw5.dev">
+    <meta property="og:image" content="">
+
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="apple-touch-icon" href="/img/favicon.ico">
+    <link rel="shortcut icon" type="image/jpg" href="/img/favicon.ico"/>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300&display=swap" rel="stylesheet">
+
+    <!-- Prism Syntax Highlighting -->
+    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
+
+    <!-- Tachyons-->
+    <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+
+    <!-- Local styles-->
+    <link rel="stylesheet" href="/styles/main.css">
+
+    <meta name="theme-color" content="#fafafa">
+    </head>
+
+    <body>
+      <div class="mw7 mw7-ns center pa3 ph5-ns" >
+        <a href="/" class="flex items-center bb no-underline black">
+            <img class="" src="/img/waveemoji.svg" width="50" height="50" />
+            <h1 class="ml4">I'm Jerry Wohlgemuth.</h1>
+        </a>
+
+        <div class="flex pa3 justify-center">
+            <div><a href="/about">about me</a></div>
+            <div class="ml4"><a href="mailto:wohlgejm@gmail.com">email</div>
+            <div class="ml4"><a href="https://www.linkedin.com/in/wohlgejm" target="_blank">linkedin</a></div>
+        </div>
+        <main>
+    <p>Here's how to get started with vim and <a href="https://reasonml.github.io/">ReasonML</a>.</p>
+<p>Start by installing <code>bs-platofrm</code>.</p>
+<pre class="language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> -g bs-platform</code></pre>
+<p>For syntax highlighting, install <a href="https://github.com/reasonml-editor/vim-reason-plus">vim-reason-plus</a>.</p>
+<pre class="language-bash"><code class="language-bash">Plugin <span class="token string">'reasonml-editor/vim-reason-plus'</span></code></pre>
+<p>For type hints and autocompletion, you can use <a href="https://github.com/prabirshrestha/vim-lsp">vim-lsp</a>.</p>
+<pre class="language-bash"><code class="language-bash">Plugin <span class="token string">'prabirshrestha/async.vim'</span><br>Plugin <span class="token string">'prabirshrestha/vim-lsp'</span><br>Plugin <span class="token string">'prabirshrestha/asyncomplete.vim'</span><br>Plugin <span class="token string">'prabirshrestha/asyncomplete-lsp.vim'</span></code></pre>
+<p>Next, install the <a href="https://github.com/freebroccolo/ocaml-language-server">ocaml-language-server</a>. This requires <a href="https://github.com/ocaml/merlin">Merlin</a>, which you can install using another set of tools, <a href="https://github.com/reasonml/reason-cli">reason-cli</a>.</p>
+<pre class="language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> -g reason-cli@latest-linux<br><span class="token function">npm</span> <span class="token function">install</span> -g ocaml-language-server</code></pre>
+<p>Lastly, add the following to your <code>.vimrc</code>.</p>
+<pre class="language-bash"><code class="language-bash"><span class="token keyword">if</span> executable<span class="token punctuation">(</span><span class="token string">'ocaml-language-server'</span><span class="token punctuation">)</span><br>    au User lsp_setup call lsp<span class="token comment">#register_server({</span><br>      <span class="token punctuation">\</span> <span class="token string">'name'</span><span class="token builtin class-name">:</span> <span class="token string">'ocaml-language-server'</span>,<br>      <span class="token punctuation">\</span> <span class="token string">'cmd'</span><span class="token builtin class-name">:</span> <span class="token punctuation">{</span>server_info-<span class="token operator">></span><span class="token punctuation">[</span><span class="token operator">&amp;</span>shell, <span class="token operator">&amp;</span>shellcmdflag, <span class="token string">'ocaml-language-server --stdio'</span><span class="token punctuation">]</span><span class="token punctuation">}</span>,<br>      <span class="token punctuation">\</span> <span class="token string">'whitelist'</span><span class="token builtin class-name">:</span> <span class="token punctuation">[</span><span class="token string">'reason'</span>, <span class="token string">'ocaml'</span><span class="token punctuation">]</span>,<br>      <span class="token punctuation">\</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><br>endif</code></pre>
+
+</main>
+
+      </div>
+    </body>
+</html>

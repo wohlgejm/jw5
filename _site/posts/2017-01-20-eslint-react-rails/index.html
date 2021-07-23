@@ -1,0 +1,81 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <title>eslint config for react-rails</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:title" content="eslint config for react-rails">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="https://jw5.dev">
+    <meta property="og:image" content="">
+
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="apple-touch-icon" href="/img/favicon.ico">
+    <link rel="shortcut icon" type="image/jpg" href="/img/favicon.ico"/>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300&display=swap" rel="stylesheet">
+
+    <!-- Prism Syntax Highlighting -->
+    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
+
+    <!-- Tachyons-->
+    <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+
+    <!-- Local styles-->
+    <link rel="stylesheet" href="/styles/main.css">
+
+    <meta name="theme-color" content="#fafafa">
+    </head>
+
+    <body>
+      <div class="mw7 mw7-ns center pa3 ph5-ns" >
+        <a href="/" class="flex items-center bb no-underline black">
+            <img class="" src="/img/waveemoji.svg" width="50" height="50" />
+            <h1 class="ml4">I'm Jerry Wohlgemuth.</h1>
+        </a>
+
+        <div class="flex pa3 justify-center">
+            <div><a href="/about">about me</a></div>
+            <div class="ml4"><a href="mailto:wohlgejm@gmail.com">email</div>
+            <div class="ml4"><a href="https://www.linkedin.com/in/wohlgejm" target="_blank">linkedin</a></div>
+        </div>
+        <main>
+    <p><a href="https://github.com/reactjs/react-rails">react-rails</a> is a gentle way to introduce react into your rails app.
+You can still use the asset pipeline and it gives you an easy way to mount components in your views.
+It also gives you an easy way to generate components, <code>rails g react:component FancyDropdown</code>.
+You'll probably out grow this quickly, but jumping into the react ecosystem is taking a leap into
+buzzword alphabet soup - it's almost impossible to figure out how to get started.</p>
+<p>If you want to use eslint with <code>react-rails</code> here's what you're <code>.eslintrc</code> can look like in
+<code>app/assets/javascripts/components/.eslintrc</code>:</p>
+<pre><code>env:
+ es6: true
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+plugins:
+  - react
+extends:
+  - eslint:recommended
+  - plugin:react/recommended
+
+rules:
+  no-unused-vars: off
+  no-undef: off
+  react/jsx-no-undef: off
+  react/react-in-jsx-scope: off
+</code></pre>
+<p>You'll want to install the eslint plugin <a href="https://github.com/yannickcr/eslint-plugin-react">eslint-plugin-react</a>.</p>
+<p>Some of the rules are disabled because you're using asset pipeline. React is available on the window, so eslint
+believes it is undefined.</p>
+<p>The biggest issue I'm running into now is the need to use react libraries. Without <a href="https://webpack.github.io/">webpack</a>, getting these to work is either a hack or not possible.</p>
+
+</main>
+
+      </div>
+    </body>
+</html>
