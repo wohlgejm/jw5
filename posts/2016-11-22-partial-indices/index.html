@@ -1,0 +1,72 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+    <meta charset="utf-8">
+    <title>Partial indices can be a bad idea</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta property="og:title" content="Partial indices can be a bad idea">
+    <meta property="og:type" content="">
+    <meta property="og:url" content="https://jw5.dev">
+    <meta property="og:image" content="">
+
+    <link rel="apple-touch-icon" href="/img/favicon.ico">
+    <link rel="shortcut icon" type="image/jpg" href="/img/favicon.ico"/>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300&display=swap" rel="stylesheet">
+
+    <!-- Prism Syntax Highlighting -->
+    <link href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css" rel="stylesheet">
+
+    <!-- Tachyons-->
+    <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
+
+    <!-- Local styles-->
+    <link rel="stylesheet" href="/styles/main.css">
+
+    <meta name="theme-color" content="#fafafa">
+    </head>
+
+    <body>
+      <div class="mw7 mw7-ns center pa3 ph5-ns" >
+        <a href="/" class="flex items-center bb no-underline black">
+            <img class="" src="/img/waveemoji.svg" width="50" height="50" />
+            <h1 class="ml4">I'm Jerry Wohlgemuth.</h1>
+        </a>
+
+        <div class="flex pa3 justify-center">
+            <div><a href="/about">about me</a></div>
+            <div class="ml4"><a href="mailto:wohlgejm@gmail.com">email</div>
+            <div class="ml4"><a href="https://www.linkedin.com/in/wohlgejm" target="_blank">linkedin</a></div>
+        </div>
+        <p>You might be tempted to use a partial index in Postgresql for a common scope you have.</p>
+<p>An example of a migration looks like this is:</p>
+<pre class="language-ruby"><code class="language-ruby"><span class="token keyword">class</span> <span class="token class-name">AddPartialIndexToFoo</span> <span class="token operator">&lt;</span> <span class="token constant">ActiveRecord</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Migration</span><br>  add_index<span class="token punctuation">(</span><span class="token symbol">:foo</span><span class="token punctuation">,</span> <span class="token symbol">:active</span><span class="token punctuation">,</span> where<span class="token punctuation">:</span> <span class="token string">'active IS true'</span><span class="token punctuation">)</span><br><span class="token keyword">end</span></code></pre>
+<p>The scope could look like:</p>
+<pre class="language-ruby"><code class="language-ruby"><span class="token keyword">class</span> <span class="token class-name">Foo</span> <span class="token constant">ActiveRecord</span><span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token constant">Base</span><br>  scope <span class="token symbol">:active</span><span class="token punctuation">,</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token punctuation">{</span> where<span class="token punctuation">(</span>active<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">}</span><br><span class="token keyword">end</span></code></pre>
+<p>The partial index will not evolve with any code changes.
+A feature request might change the <code>active</code> scope to include another attribute.
+Once that scope is changed, the index is worthless and it's hard to remember
+that it must be changed.</p>
+<p>This bit us hard recently and it was hard to pin down because the query timed out only <em>some times</em>
+and on a variety of pages where the scope was used.</p>
+<p>If you have a default scope, it would probably make matters even worse.</p>
+<p>Because partial indexes can't keep up with scopes, I think they are <em>generally</em> a bad idea, like default scopes.</p>
+
+      </div>
+    </body>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CY25JVKR0D"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-CY25JVKR0D');
+    </script>
+</html>
