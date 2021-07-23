@@ -1,5 +1,5 @@
 ---
-layout: main.html
+layout: post.html
 title: Hacking multi-line tooltips in Chart.js
 date: 2017-03-09
 tags: post

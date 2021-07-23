@@ -1,5 +1,5 @@
 ---
-layout: main.html
+layout: post.html
 title: Fake `open` with Python doubles
 date: 2016-11-20
 tags: post

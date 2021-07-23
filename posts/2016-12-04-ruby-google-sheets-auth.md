@@ -1,5 +1,5 @@
 ---
-layout: main.html
+layout: post.html
 title: Using ENVs for Google Drive API auth
 date: 2016-12-04
 tags: post

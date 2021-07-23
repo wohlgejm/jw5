@@ -1,5 +1,5 @@
 ---
-layout: main.html
+layout: post.html
 title: Ends-driven product development
 tags: post
 date: 2021-07-28

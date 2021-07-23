@@ -1,5 +1,5 @@
 ---
-layout: main.html
+layout: post.html
 title: JWTs in Google Apps Script
 date: 2018-11-21
 tags: post

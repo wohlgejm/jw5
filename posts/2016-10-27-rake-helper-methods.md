@@ -1,5 +1,5 @@
 ---
-layout: main.html
+layout: post.html
 title: Don't use helper methods in rake tasks
 date: 2016-10-27
 tags: post

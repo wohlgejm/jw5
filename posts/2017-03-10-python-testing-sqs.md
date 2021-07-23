@@ -1,5 +1,5 @@
 ---
-layout: main.html
+layout: post.html
 title: Testing sqs in python
 date: 2017-03-10
 tags: post

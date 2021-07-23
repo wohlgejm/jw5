@@ -1,5 +1,5 @@
 ---
-layout: main.html
+layout: post.html
 title: Amazon api requests from google sheets
 date: 2017-02-14
 tags: post

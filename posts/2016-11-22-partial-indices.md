@@ -1,5 +1,5 @@
 ---
-layout: main.html
+layout: post.html
 title: Partial indices can be a bad idea
 date: 2016-11-22
 tags: post

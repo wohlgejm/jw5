@@ -1,5 +1,5 @@
 ---
-layout: main.html
+layout: post.html
 title: Uber's Python test doubles are awesome
 date: 2016-11-14
 tags: post

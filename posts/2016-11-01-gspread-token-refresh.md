@@ -1,5 +1,5 @@
 ---
-layout: main.html
+layout: post.html
 title: Python gspread token refresh
 date: 2016-11-01
 tags: post

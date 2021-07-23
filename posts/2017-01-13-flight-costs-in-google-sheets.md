@@ -1,5 +1,5 @@
 ---
-layout: main.html
+layout: post.html
 title: Flight costs in Google sheets
 date: 2017-01-13
 tags: post

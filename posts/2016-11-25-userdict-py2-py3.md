@@ -1,5 +1,5 @@
 ---
-layout: main.html
+layout: post.html
 title: Using `UserDict` in Py2 and Py3
 date: 2016-11-25
 tags: post

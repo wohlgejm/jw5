@@ -1,5 +1,5 @@
 ---
-layout: main.html
+layout: post.html
 title: Adding a column is unsafe
 date: 2018-01-31
 tags: post
