@@ -7,7 +7,7 @@ title: Jerry Wohlgemuth
 
 <div>
   {%- for post in collections.post reversed -%}
-  <div class="flex flex-row pa1">
+  <div class="flex flex-column flex-row-ns pa1">
     <div class="b mr3">{{ post.data.date | date: "%Y-%m-%d" }}</div>
     <a href="{{ post.url }}">{{ post.data.title }}</a>
   </div>
