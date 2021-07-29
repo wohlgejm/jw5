@@ -74,6 +74,14 @@ see more <a href="http://python-future.org/compatible_idioms.html#stringio">here
 <pre class="language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">test_io</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span><br>    <span class="token keyword">with</span> no_builtin_verification<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span><br>        i <span class="token operator">=</span> <span class="token builtin">__import__</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token string">'builtins'</span> <span class="token keyword">if</span> sys<span class="token punctuation">.</span>version_info <span class="token operator">>=</span> <span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span><span class="token punctuation">)</span><br>                        <span class="token keyword">else</span> <span class="token string">'__builtin__'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><br>        expect<span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token builtin">open</span><span class="token punctuation">.</span>with_args<span class="token punctuation">(</span>Config<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>config_file<span class="token punctuation">,</span> <span class="token string">'w+'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>and_return<span class="token punctuation">(</span><br>            io<span class="token punctuation">.</span>BytesIO<span class="token punctuation">(</span><span class="token punctuation">)</span><br>        <span class="token punctuation">)</span></code></pre>
 </main>
 
+<script src="https://utteranc.es/client.js"
+        repo="wohlgejm/jw5"
+        issue-term="title"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
     </div>
   </body>
 
