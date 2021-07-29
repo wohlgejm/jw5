@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>More evidence why AR callbacks are problematic</title>
+    <meta name="description" content="Personal website of Jerry Wohlgemuth." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta property="og:title" content="More evidence why AR callbacks are problematic" />
+    <meta property="og:type" content="" />
+    <meta property="og:url" content="https://jw5.dev" />
+    <meta property="og:image" content="" />
+
+    <link rel="apple-touch-icon" href="/img/favicon.ico" />
+    <link rel="shortcut icon" type="image/jpg" href="/img/favicon.ico" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Prism Syntax Highlighting -->
+    <link
+      href="https://unpkg.com/prismjs@1.20.0/themes/prism-okaidia.css"
+      rel="stylesheet"
+    />
+
+    <!-- Tachyons-->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/tachyons/css/tachyons.min.css"
+    />
+
+    <!-- Local styles-->
+    <link rel="stylesheet" href="/styles/main.css" />
+
+    <meta name="theme-color" content="#fafafa" />
+  </head>
+
+  <body>
+    <div class="mw7 mw7-ns center pa3 ph5-ns">
+      <a href="/" class="flex items-center bb no-underline black">
+        <img src="/img/waveemoji.svg" alt="Wave" width="50" height="50" />
+        <h1 class="ml4">I'm Jerry Wohlgemuth.</h1>
+      </a>
+
+      <div class="flex pa3 justify-center">
+        <div><a href="/about">about me</a></div>
+        <div class="ml4"><a href="mailto:wohlgejm@gmail.com">email</a></div>
+        <div class="ml4">
+          <a
+            href="https://www.linkedin.com/in/wohlgejm"
+            rel="noreferrer"
+            target="_blank"
+            >linkedin</a
+          >
+        </div>
+      </div>
+      
+<h3 class="tc"> More evidence why AR callbacks are problematic</h1>
+<h5 class="tc"> 2021-07-29</h1>
+<main><p>Rail's ORM <a href="https://guides.rubyonrails.org/active_record_basics.html">ActiveRecord</a> has a well documented and widely used system of <a href="https://guides.rubyonrails.org/active_record_callbacks.html">callbacks</a> that can apply logic during difference phases of the object lifecycle.</p>
+<p>These can be really handy for situations like sending an email notification to a user after some model has been updated, or maybe keeping a secondary data store in sync, like a search engine or a cache.</p>
+<p>As your application grows, it's likely that varying pathways toward record creation will be introduced. These pathways tend to use the base API methods of ActiveRecord for mutation, like <code>create</code> and <code>update</code>. This means that callbacks will usually be triggered, unless you use certain methods, like <code>update_columns</code>, that explicitly do not.</p>
+<p>This is a huge burden. Now, you must check for callbacks, which are maybe not even on the model class, but included through some other module. This mental burden isn't the only problem. It can be tricky to reason about <em>when</em> the callbacks are applied.</p>
+<p>Let's walk through a practical example.</p>
+<p>Let's say you have a <code>User</code> model. You are tasked with adding permissions to that model. Users have some defaults that should be added every time a user is updated. You grep the codebase and over the years, <code>User</code> creation isn't trivial anymore. A bulk loading process has been added. There's a few different API endpoints that handle different use cases. To ensure these permissions are always created, you place it in a callback.</p>
+<pre class="language-ruby"><code class="language-ruby"><span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token operator">&lt;</span> <span class="token constant">ApplicationRecord</span><br>  has_many <span class="token symbol">:permissions</span><br>  after_commit <span class="token symbol">:create_default_permissions</span><span class="token punctuation">,</span> on<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token symbol">:create</span><span class="token punctuation">]</span><br><br>  <span class="token keyword">private</span><br><br>  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">create_default_permissions</span></span><br>    permissions <span class="token operator">&lt;</span><span class="token operator">&lt;</span> <span class="token constant">DEFAULT_PERMISSIONS</span><span class="token punctuation">.</span>map <span class="token keyword">do</span> <span class="token operator">|</span>p<span class="token operator">|</span><br>      <span class="token constant">Permission</span><span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span>p<span class="token punctuation">.</span>merge<span class="token punctuation">(</span>user<span class="token punctuation">:</span> <span class="token keyword">self</span><span class="token punctuation">)</span><span class="token punctuation">)</span><br>    <span class="token keyword">end</span><br>  <span class="token keyword">end</span><br><span class="token keyword">end</span></code></pre>
+<p>This works great for a while.. Then, a requirement comes in to change the default permissions under some condition. Let's say that during the bulk creation process, we want to create users with a different set of permissions. If there's an error when creating one of the users, we want to rollback and show an error to our user, so it's been wrapped in a transaction. It might look something like this.</p>
+<pre class="language-ruby"><code class="language-ruby"><span class="token keyword">class</span> <span class="token class-name">BulkUserService</span><br>  <span class="token keyword">def</span> <span class="token method-definition"><span class="token function">create</span></span><span class="token operator">!</span><br>    <span class="token constant">User</span><span class="token punctuation">.</span>transaction <span class="token keyword">do</span><br>		  csv<span class="token punctuation">.</span><span class="token keyword">each</span> <span class="token keyword">do</span> <span class="token operator">|</span>attributes<span class="token operator">|</span><br>        user <span class="token operator">=</span> <span class="token constant">User</span><span class="token punctuation">.</span>create<span class="token operator">!</span><span class="token punctuation">(</span>attributes<span class="token punctuation">)</span><br>        user<span class="token punctuation">.</span>permissions <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token constant">Permission</span><span class="token punctuation">.</span><span class="token keyword">new</span><span class="token punctuation">(</span>user<span class="token punctuation">:</span> user<span class="token punctuation">,</span> name<span class="token punctuation">:</span> <span class="token string">'something'</span><span class="token punctuation">)</span><span class="token punctuation">]</span><br>      <span class="token keyword">end</span><br>    <span class="token keyword">end</span><br>  <span class="token keyword">end</span><br><span class="token keyword">end</span></code></pre>
+<p>At first glance, you might assume that the callback will run after <code>create!</code>. Then, we immediately overwrite the collection with the desired new default, so this will work the way we intend it to.</p>
+<p>This is not the case, though. Because the entire loop is wrapped in a transaction, <code>after_commit</code> is going to run when <em>that</em> transaction is finished and committed to the database. So, the users are still going to have the default permissions specified in the callback.</p>
+<p>How can these problems be avoided? The best way forward is to stop using callbacks and try to centralize and standardize your mutation APIs. I really like the way <a href="https://guides.hanamirb.org/v1.3/repositories/overview/">Hanami</a> repositories work. The key point:</p>
+<blockquote>
+<p>All the queries are private. This decision forces developers to define intention revealing API, instead of leaking storage API details outside of a repository.</p>
+</blockquote>
+<p>I'm interested in ways to achieve this pattern on existing Rails code bases. Has anyone done it? I'm going to be working through some ideas in the future.</p>
+</main>
+
+    </div>
+  </body>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-CY25JVKR0D"
+  ></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-CY25JVKR0D");
+  </script>
+</html>
