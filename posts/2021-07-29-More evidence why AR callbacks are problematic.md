@@ -37,7 +37,7 @@ This works great for a while.. Then, a requirement comes in to change the defaul
 class BulkUserService
   def create!
     User.transaction do
-		  csv.each do |attributes|
+      csv.each do |attributes|
         user = User.create!(attributes)
         user.permissions = [Permission.new(user: user, name: 'something')]
       end
