@@ -19,5 +19,8 @@
     "install": "^0.13.0",
     "npm": "^7.20.0",
     "prettier": "^2.3.2"
+  },
+  "dependencies": {
+    "markdown-it-footnote": "^3.0.3"
   }
 }
