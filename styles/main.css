@@ -9,3 +9,7 @@ blockquote {
 blockquote p {
   padding: 0.5rem;
 }
+
+.footnotes-list {
+  line-break: anywhere;
+}
