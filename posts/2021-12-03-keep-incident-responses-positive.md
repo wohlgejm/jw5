@@ -4,7 +4,7 @@ title: Keep incident responses *positive*
 date: 2021-12-03
 tags: post
 ---
-<iframe style="margin:auto;display:block" width="560" height="315" src="https://www.youtube.com/embed/gdbjw27QPJQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe style="margin:auto;display:block;min-height:315px;" width="95%" src="https://www.youtube.com/embed/gdbjw27QPJQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 >In the social sciences and philosophy, a positive or descriptive statement concerns what "is", "was", or "will be", and contains no indication of approval or disapproval (what should be). Positive statements are thus the opposite of normative statements [^1]
 
